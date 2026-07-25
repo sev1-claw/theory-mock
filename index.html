@@ -270,7 +270,22 @@ const BANK = [
  {c:"Insurance",q:"You don't have your insurance certificate when stopped by police. You must produce it within…",o:["24 hours","7 days","14 days","1 month"],a:1},
  {c:"Insurance",q:"Your insurance could become INVALID if you…",o:["Drive at night","Drive an unroadworthy car (e.g. illegal tyres or no MOT)","Carry a passenger","Use a sat nav"],a:1},
  {c:"Insurance",q:"Driving a vehicle you are NOT insured to drive can result in…",o:["A warning only","Penalty points, a fine and possible disqualification","Nothing","A parking ticket"],a:1},
- {c:"Insurance",q:"Before you can tax your car, you must have valid…",o:["A parking permit","Insurance and (if applicable) an MOT","A breakdown policy","A no claims bonus"],a:1}
+ {c:"Insurance",q:"Before you can tax your car, you must have valid…",o:["A parking permit","Insurance and (if applicable) an MOT","A breakdown policy","A no claims bonus"],a:1},
+ {c:"Hazard lights",q:"While MOVING, you may briefly use hazard warning lights only to…",o:["Thank another driver","Warn traffic behind of a hazard or queue ahead on a motorway/dual carriageway","Park on double yellows","Drive in a bus lane"],a:1},
+ {c:"Hazard lights",q:"The main purpose of hazard warning lights is when your vehicle is…",o:["Moving slowly","Stationary and causing an obstruction, or broken down","Being overtaken","Turning right"],a:1},
+ {c:"Horn",q:"In a built-up area you must NOT sound your horn between…",o:["8pm and 6am","11:30pm and 7:00am","10pm and 5am","Midnight and 8am"],a:1},
+ {c:"Horn",q:"You should use your horn only to…",o:["Show annoyance","Warn others of your presence when needed","Say hello","Hurry pedestrians along"],a:1},
+ {c:"Horn",q:"You must not sound your horn while stationary, unless…",o:["You're in a hurry","Another moving vehicle poses a danger","It's daytime","You're on a main road"],a:1},
+ {c:"Motorway breakdown",q:"On a motorway, the roadside marker posts have arrows pointing you to the nearest…",o:["Service station","Emergency telephone","Exit","Petrol station"],a:1},
+ {c:"Meeting traffic",q:"Parked cars block your side of a narrow road and oncoming traffic approaches. You should…",o:["Force your way through","Give way and wait, as the obstruction is on your side","Flash and drive on","Sound your horn and continue"],a:1},
+ {c:"Overtaking",q:"You may overtake on the LEFT when…",o:["The road ahead is clear","Traffic is queuing slowly in lanes, or the vehicle ahead is turning right","You are in a hurry","On any dual carriageway"],a:1},
+ {c:"Seat belts",q:"You are allowed NOT to wear a seat belt when…",o:["Driving a sports car","Reversing, or if you hold a valid medical exemption certificate","On a short trip","In heavy traffic"],a:1},
+ {c:"Lights",q:"On a dull, overcast day you should…",o:["Use full beam","Use dipped headlights so others can see you","Use rear fog lights","Use no lights"],a:1},
+ {c:"Buses",q:"A bus has stopped ahead at a bus stop. You should especially watch for…",o:["Nothing","Pedestrians stepping out in front of or behind it","Faster traffic","Cyclists only"],a:1},
+ {c:"Long vehicles",q:"A long lorry ahead moves out to the right before turning LEFT at a junction because it…",o:["Is lost","Needs extra room to make the turn — don't pass on its left","Is signalling wrongly","Wants you to overtake"],a:1},
+ {c:"Anticipation",q:"Approaching a zebra crossing where someone is waiting to cross, you should…",o:["Speed up","Slow down and be ready to stop","Sound your horn","Wave them across"],a:1},
+ {c:"Junctions",q:"You want to turn right into a side road but oncoming traffic is close. You should…",o:["Turn quickly in front of it","Wait until there is a safe gap","Make it slow down","Sound your horn"],a:1},
+ {c:"Tunnels",q:"When driving through a tunnel you should…",o:["Drive close to the vehicle ahead","Keep a safe distance and switch on dipped headlights","Overtake when you can","Turn on hazard lights"],a:1}
 ];
 
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
