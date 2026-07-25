@@ -285,7 +285,30 @@ const BANK = [
  {c:"Long vehicles",q:"A long lorry ahead moves out to the right before turning LEFT at a junction because it…",o:["Is lost","Needs extra room to make the turn — don't pass on its left","Is signalling wrongly","Wants you to overtake"],a:1},
  {c:"Anticipation",q:"Approaching a zebra crossing where someone is waiting to cross, you should…",o:["Speed up","Slow down and be ready to stop","Sound your horn","Wave them across"],a:1},
  {c:"Junctions",q:"You want to turn right into a side road but oncoming traffic is close. You should…",o:["Turn quickly in front of it","Wait until there is a safe gap","Make it slow down","Sound your horn"],a:1},
- {c:"Tunnels",q:"When driving through a tunnel you should…",o:["Drive close to the vehicle ahead","Keep a safe distance and switch on dipped headlights","Overtake when you can","Turn on hazard lights"],a:1}
+ {c:"Tunnels",q:"When driving through a tunnel you should…",o:["Drive close to the vehicle ahead","Keep a safe distance and switch on dipped headlights","Overtake when you can","Turn on hazard lights"],a:1},
+ {c:"Towing",q:"What is the national speed limit for a car towing a trailer on a motorway?",o:["50 mph","60 mph","70 mph","40 mph"],a:1},
+ {c:"Towing",q:"You're towing a trailer on a three-lane motorway. Which lane must you NOT use?",o:["The left-hand lane","The middle lane","The right-hand (outside) lane","Any lane you like"],a:2},
+ {c:"Towing",q:"What does 'nose weight' mean when towing?",o:["The total weight of the trailer","The downward force the trailer's coupling puts on the tow ball","The weight of the load only","The pressure in the trailer's tyres"],a:1},
+ {c:"Towing",q:"Your trailer starts to swing from side to side (snaking). What should you do?",o:["Brake hard immediately","Accelerate to straighten it","Ease off the accelerator and slow down gradually","Steer sharply the other way"],a:2},
+ {c:"Towing",q:"Where should you put the heaviest items when loading a trailer?",o:["At the very front","At the very back","Over or close to the axle(s)","All on one side"],a:2},
+ {c:"Towing",q:"What is the purpose of a stabiliser fitted to a towbar?",o:["To increase towing speed","To reduce snaking/swaying","To brake the trailer","To level the headlights"],a:1},
+ {c:"Towing",q:"What does a trailer's breakaway cable do?",o:["Charges the trailer battery","Applies the trailer's brakes if it becomes detached","Connects the lights","Locks the coupling"],a:1},
+ {c:"Towing",q:"You're towing a caravan that's wider than your car. What must you fit?",o:["Wider tyres","Extended towing mirrors","A roof rack","Front fog lights"],a:1},
+ {c:"Towing",q:"Too much nose weight on the tow ball will…",o:["Make the trailer lift up","Overload the car's rear axle and affect steering","Improve stability","Have no effect at all"],a:1},
+ {c:"ABS",q:"What does ABS stand for?",o:["Automatic Braking Support","Anti-lock Braking System","Assisted Brake Sensor","Active Balance System"],a:1},
+ {c:"ABS",q:"The main benefit of anti-lock brakes (ABS) is that they…",o:["Always shorten your stopping distance","Let you steer while braking hard","Work best on ice","Let you brake later every time"],a:1},
+ {c:"ABS",q:"When braking hard in an emergency in a car with ABS, you should…",o:["Pump the brake pedal on and off","Apply firm, continuous pressure to the brake pedal","Brake very gently","Press the clutch down first"],a:1},
+ {c:"ABS",q:"Anti-lock brakes may NOT work as effectively on…",o:["Dry tarmac","Loose surfaces such as gravel or snow","Motorways","Smooth wet roads only"],a:1},
+ {c:"ABS",q:"Do anti-lock brakes always reduce your stopping distance?",o:["Yes, always","No — their main purpose is to keep you steering while braking","Only in the rain","Only above 40 mph"],a:1},
+ {c:"ABS",q:"Your ABS warning light stays on after starting the car. You should…",o:["Ignore it, the brakes still work","Have the braking system checked","Brake harder to reset it","Drive faster to clear it"],a:1},
+ {c:"Car parts",q:"What is the main purpose of a catalytic converter?",o:["To make the engine louder","To reduce harmful exhaust emissions","To increase fuel consumption","To cool the brakes"],a:1},
+ {c:"Car parts",q:"What does the clutch do?",o:["Applies the brakes","Temporarily disconnects the engine from the wheels so you can change gear","Steers the car","Charges the battery"],a:1},
+ {c:"Car parts",q:"A red temperature warning light comes on while driving. This usually means…",o:["Low tyre pressure","The engine is overheating — stop when it's safe","The doors are open","Your lights are on"],a:1},
+ {c:"Car parts",q:"While driving, the red engine oil-pressure warning light comes on. You should…",o:["Keep driving to your destination","Stop as soon as it's safe and investigate","Rev the engine to build pressure","Turn on hazard lights and carry on"],a:1},
+ {c:"Car parts",q:"Your steering suddenly becomes much heavier than normal. The most likely cause is…",o:["Over-inflated tyres","A fault with the power-assisted steering","Too much engine oil","Cold weather"],a:1},
+ {c:"Car parts",q:"What do the shock absorbers (suspension) do?",o:["Power the wheels","Help keep the tyres on the road and smooth out bumps","Cool the engine","Change gear for you"],a:1},
+ {c:"Car parts",q:"How can you check for worn shock absorbers?",o:["Press down firmly on the car and see if it keeps bouncing","Check the engine oil","Look at the windscreen","Listen to the exhaust"],a:0},
+ {c:"Car parts",q:"The brake fluid warning light shows the level is low. You should…",o:["Top up with water","Have the brakes checked before driving","Ignore it if the brakes feel fine","Just pump the pedal"],a:1}
 ];
 
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
