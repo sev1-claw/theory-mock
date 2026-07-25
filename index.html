@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK Theory Mock — 50 hard questions</title>
+<style>
+  :root{--bg:#f4f5f7;--card:#fff;--ink:#1f2d3d;--accent:#e8730c;--blue:#0b5ed7;--ok:#1a8a3a;--bad:#c92a2a;--line:#e2e4e9;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);}
+  .wrap{max-width:640px;margin:0 auto;padding:16px;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:14px 4px;border-bottom:1px solid var(--line);margin-bottom:14px;}
+  header h1{font-size:16px;margin:0;font-weight:700;}
+  .prog{font-size:14px;color:#667;}
+  .bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:18px;}
+  .bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s;}
+  .cat{color:var(--accent);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.3px;}
+  .q{font-size:19px;line-height:1.35;font-weight:600;margin:8px 0 6px;}
+  .hint{color:#8a94a6;font-size:13px;margin-bottom:16px;}
+  .opt{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px;font-size:16px;cursor:pointer;transition:.12s;color:var(--ink);}
+  .opt:active{transform:scale(.99);}
+  .opt.sel{border-color:var(--blue);background:#eef4ff;}
+  .nav{display:flex;gap:10px;margin-top:8px;}
+  button.act{flex:1;border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;}
+  .next{background:var(--accent);color:#fff;}
+  .next:disabled{opacity:.4;}
+  .back{background:#e7e9ee;color:#333;flex:0 0 90px;}
+  /* results */
+  .score{text-align:center;padding:24px 0;}
+  .score .big{font-size:52px;font-weight:800;}
+  .pass{color:var(--ok);} .fail{color:var(--bad);}
+  .verdict{font-size:20px;font-weight:700;margin-top:4px;}
+  .sub{color:#667;margin-top:6px;font-size:14px;}
+  .rev{margin-top:22px;}
+  .rev h2{font-size:15px;border-bottom:1px solid var(--line);padding-bottom:8px;}
+  .ritem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;}
+  .ritem .rq{font-weight:600;margin-bottom:8px;}
+  .row{font-size:15px;margin:3px 0;}
+  .row.your{color:var(--bad);}
+  .row.correct{color:var(--ok);}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;margin-right:6px;}
+  .tag.y{background:#ffe3e3;color:var(--bad);}
+  .tag.c{background:#d3f9d8;color:var(--ok);}
+  .retry{background:var(--blue);color:#fff;border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;width:100%;margin-top:10px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>🚗 UK Theory — Hard Mock</h1><span class="prog" id="prog"></span></header>
+  <div class="bar"><i id="fill"></i></div>
+  <div id="quiz"></div>
+  <div id="result" style="display:none"></div>
+</div>
+<script>
+const Q = [
+ {c:"Stopping distances",q:"What is the typical overall stopping distance at 60 mph in good, dry conditions?",o:["36 metres","53 metres","73 metres","96 metres"],a:2},
+ {c:"Stopping distances",q:"At 50 mph, roughly how much of the overall stopping distance is thinking (reaction) distance?",o:["12 metres","15 metres","24 metres","38 metres"],a:1},
+ {c:"Stopping distances",q:"In icy conditions, stopping distances can be up to how many times greater than on a dry road?",o:["Twice","Four times","Ten times","Twenty times"],a:2},
+ {c:"Stopping distances",q:"You double your speed from 30 to 60 mph. Your braking distance is roughly…",o:["Doubled","Tripled","Four times as long","Unchanged"],a:2},
+ {c:"Vehicle loading",q:"You're towing a trailer wider than your car. What must you fit before towing?",o:["Parking sensors","Exterior towing mirrors","A rear-view camera","Projection markers"],a:1},
+ {c:"Vehicle loading",q:"What safety device must be fitted to a trailer braking system?",o:["Stabiliser","Jockey wheel","Corner steadies","Breakaway cable"],a:3},
+ {c:"Vehicle loading",q:"A heavy load carried on a roof rack will mainly…",o:["Lower the centre of gravity","Raise the centre of gravity and affect handling","Improve fuel economy","Have no effect on stability"],a:1},
+ {c:"Documents",q:"When must a brand-new car have its first MOT test?",o:["After 1 year","After 3 years","After 5 years","Only when sold"],a:1},
+ {c:"Documents",q:"What is the minimum insurance cover required by law to drive on the road?",o:["Third party","Third party, fire & theft","Comprehensive","Personal accident"],a:0},
+ {c:"Documents",q:"From what distance must a number plate be readable in good daylight?",o:["10 metres","20 metres","30 metres","50 metres"],a:1},
+ {c:"Alcohol & drugs",q:"What is the legal alcohol limit in England & Wales, measured in breath?",o:["22 microgrammes / 100ml","35 microgrammes / 100ml","50 microgrammes / 100ml","80 microgrammes / 100ml"],a:1},
+ {c:"Penalties",q:"How many penalty points within 2 years of passing will have a new driver's licence revoked?",o:["3 points","6 points","9 points","12 points"],a:1},
+ {c:"Penalties",q:"How many penalty points normally lead to disqualification for an experienced driver?",o:["6","9","12","15"],a:2},
+ {c:"Penalties",q:"Using a hand-held mobile phone while driving typically results in…",o:["A warning only","3 points and a fine","6 points and a fine","Immediate ban"],a:2},
+ {c:"First aid",q:"At the scene of a crash, after Danger and Response, what is the next step (the 'A' in DR ABC)?",o:["Airway","Assess bleeding","Ambulance","Alertness"],a:0},
+ {c:"First aid",q:"To cool a burn on a casualty, you should douse it with clean, cool water for at least…",o:["1 minute","5 minutes","10 minutes","30 seconds"],a:2},
+ {c:"First aid",q:"Someone is in shock after a crash. You should…",o:["Give them a warm sweet drink","Reassure them, keep them warm, don't give food or drink","Make them walk around","Raise their head"],a:1},
+ {c:"First aid",q:"An unconscious casualty is breathing but still in the car. You should generally…",o:["Pull them out immediately","Not move them unless there is danger (e.g. fire)","Sit them upright","Give them water"],a:1},
+ {c:"Vulnerable users",q:"When overtaking a cyclist, you should leave at least…",o:["0.5 metre","1 metre","1.5 metres","No specific gap"],a:2},
+ {c:"Vulnerable users",q:"Which road users are hardest to see and most at risk at junctions?",o:["Lorries","Buses","Motorcyclists and cyclists","Vans"],a:2},
+ {c:"Vulnerable users",q:"You're approaching horse riders. You should…",o:["Sound your horn to warn them","Rev your engine and pass close","Slow right down and pass wide and slow","Flash your lights"],a:2},
+ {c:"Motorways",q:"A red 'X' shown above a motorway lane means…",o:["Slow down in this lane","Lane closed — do not drive in it","Lane for lorries only","Hard shoulder now open"],a:1},
+ {c:"Motorways",q:"On a motorway, which lane should you normally drive in?",o:["The right-hand lane","The middle lane","The left-hand lane","Any lane"],a:2},
+ {c:"Motorways",q:"On a conventional motorway, the hard shoulder is for…",o:["Overtaking","Emergencies and breakdowns only","Slow vehicles","Taking a rest"],a:1},
+ {c:"Motorways",q:"Which of these is NOT allowed on a motorway?",o:["A car towing a caravan","A learner car with an approved instructor","A moped under 50cc","A motorcycle over 50cc"],a:2},
+ {c:"Speed limits",q:"The national speed limit for a car on a single carriageway road is…",o:["50 mph","60 mph","70 mph","40 mph"],a:1},
+ {c:"Speed limits",q:"The national speed limit for a car on a dual carriageway is…",o:["50 mph","60 mph","70 mph","80 mph"],a:2},
+ {c:"Speed limits",q:"A car towing a trailer on a motorway must not exceed…",o:["50 mph","60 mph","70 mph","The same as any car"],a:1},
+ {c:"Speed limits",q:"In a built-up area with street lights but no signs, the limit is usually…",o:["20 mph","30 mph","40 mph","National limit"],a:1},
+ {c:"Road signs",q:"A circular road sign with a red border generally gives…",o:["A warning","An order/prohibition","Information","A direction"],a:1},
+ {c:"Road signs",q:"A triangular road sign generally gives…",o:["An order","A warning","Information","A prohibition"],a:1},
+ {c:"Road signs",q:"A blue circular sign generally gives…",o:["A prohibition","A warning","A mandatory instruction (must do)","Tourist information"],a:2},
+ {c:"Road signs",q:"Countdown markers (diagonal bars) on a motorway warn you of…",o:["Roadworks ahead","The next exit / junction","A speed camera","The end of the motorway"],a:1},
+ {c:"Alertness",q:"You start to feel sleepy on a long drive. The best thing to do is…",o:["Open a window and turn up the radio","Stop somewhere safe, rest and take caffeine","Drive faster to finish sooner","Eat a large meal and continue"],a:1},
+ {c:"Alertness",q:"When may you use a hand-held mobile phone in the car?",o:["At traffic lights","In slow-moving traffic","When safely parked with the engine off","Never in any situation"],a:2},
+ {c:"Attitude",q:"A vehicle is following you too closely (tailgating). You should…",o:["Brake sharply to warn them","Speed up to get away","Gradually increase the gap in front of you","Ignore it and brake normally"],a:2},
+ {c:"Pedestrian crossings",q:"At a pelican crossing, a flashing amber light means…",o:["Stop and wait","Give way to pedestrians still on the crossing","Speed up to clear it","Same as a red light"],a:1},
+ {c:"Pedestrian crossings",q:"The zig-zag lines at a pedestrian crossing mean you must not…",o:["Sound your horn","Park or overtake the leading vehicle","Change gear","Use your mirrors"],a:1},
+ {c:"Traffic lights",q:"A steady amber traffic light means…",o:["Go if the road is clear","Stop, unless you're so close that stopping could cause a crash","Speed up","Give way to the right"],a:1},
+ {c:"Skidding",q:"Most skids are caused by…",o:["Faulty tyres","The driver braking or steering too harshly for the conditions","Poor road surface alone","Wind"],a:1},
+ {c:"Skidding",q:"Your car begins to aquaplane in heavy rain. You should…",o:["Brake firmly","Ease off the accelerator and don't brake hard","Steer sharply","Accelerate to regain grip"],a:1},
+ {c:"Braking",q:"ABS (anti-lock brakes) is designed to help you…",o:["Stop in a shorter distance always","Steer while braking hard in an emergency","Corner faster","Save fuel"],a:1},
+ {c:"Vehicle control",q:"Coasting (rolling with the clutch down or in neutral) is bad because…",o:["It wears the tyres","You have less control and steering/braking response","It uses more fuel","It's illegal on hills"],a:1},
+ {c:"Tyres",q:"The minimum legal tread depth for a car tyre is…",o:["1.0 mm","1.6 mm","2.0 mm","3.0 mm"],a:1},
+ {c:"Tyres",q:"Over the tread, the 1.6 mm minimum must apply…",o:["Anywhere on the tyre","Across the central 3/4 and around the whole circumference","Only on the outer edge","Only where it's worn most"],a:1},
+ {c:"Lights",q:"You should use front fog lights only when visibility falls below…",o:["50 metres","100 metres","200 metres","300 metres"],a:1},
+ {c:"Environment",q:"Which driving style reduces fuel consumption and emissions the most?",o:["Hard acceleration and late braking","Smooth acceleration and gentle braking","Keeping revs high","Coasting downhill"],a:1},
+ {c:"Environment",q:"A catalytic converter is fitted to…",o:["Increase engine power","Reduce toxic exhaust emissions","Improve the brakes","Cool the engine"],a:1},
+ {c:"Parking",q:"At night you may park without lights on a road with a speed limit of…",o:["30 mph or less","40 mph","60 mph","Any speed limit"],a:0},
+ {c:"Level crossings",q:"At a level crossing the amber light comes on and the alarm sounds as you approach. You should…",o:["Drive across quickly","Stop before the crossing and wait","Zig-zag around the barrier","Reverse away fast"],a:1}
+];
+
+let cur=0;
+const answers=new Array(Q.length).fill(null);
+const quiz=document.getElementById('quiz');
+const prog=document.getElementById('prog');
+const fill=document.getElementById('fill');
+
+function render(){
+  const item=Q[cur];
+  prog.textContent=(cur+1)+" / "+Q.length;
+  fill.style.width=((cur)/Q.length*100)+"%";
+  let html='<div class="cat">'+item.c+'</div>';
+  html+='<div class="q">'+item.q+'</div>';
+  html+='<div class="hint">Select ONE answer</div>';
+  item.o.forEach((op,i)=>{
+    const sel=answers[cur]===i?' sel':'';
+    html+='<button class="opt'+sel+'" onclick="pick('+i+')">'+op+'</button>';
+  });
+  html+='<div class="nav">';
+  if(cur>0) html+='<button class="act back" onclick="go(-1)">Back</button>';
+  const last=cur===Q.length-1;
+  html+='<button class="act next" id="nx" onclick="next()"'+(answers[cur]===null?' disabled':'')+'>'+(last?'Finish ✓':'Next →')+'</button>';
+  html+='</div>';
+  quiz.innerHTML=html;
+}
+function pick(i){answers[cur]=i;render();}
+function go(d){cur+=d;render();}
+function next(){
+  if(answers[cur]===null) return;
+  if(cur<Q.length-1){cur++;render();}
+  else finish();
+}
+function finish(){
+  let score=0;
+  Q.forEach((it,i)=>{if(answers[i]===it.a)score++;});
+  const pct=Math.round(score/Q.length*100);
+  const passMark=43; // 43/50 like the real multiple-choice section
+  const passed=score>=passMark;
+  quiz.style.display='none';
+  fill.style.width='100%';
+  const res=document.getElementById('result');
+  res.style.display='block';
+  let h='<div class="score">';
+  h+='<div class="big '+(passed?'pass':'fail')+'">'+score+'/'+Q.length+'</div>';
+  h+='<div class="verdict '+(passed?'pass':'fail')+'">'+(passed?'PASS ✅':'Not yet — keep going 💪')+'</div>';
+  h+='<div class="sub">'+pct+'% correct · pass mark is 43/50</div>';
+  h+='</div>';
+  // review wrong ones
+  const wrong=Q.map((it,i)=>({it,i})).filter(x=>answers[x.i]!==x.it.a);
+  if(wrong.length){
+    h+='<div class="rev"><h2>Review your '+wrong.length+' mistake'+(wrong.length>1?'s':'')+'</h2>';
+    wrong.forEach(x=>{
+      const yo=answers[x.i]===null?'— (skipped)':x.it.o[answers[x.i]];
+      h+='<div class="ritem"><div class="rq">'+(x.i+1)+'. '+x.it.q+'</div>';
+      h+='<div class="row your"><span class="tag y">YOU</span>'+yo+'</div>';
+      h+='<div class="row correct"><span class="tag c">RIGHT</span>'+x.it.o[x.it.a]+'</div>';
+      h+='</div>';
+    });
+    h+='</div>';
+  } else {
+    h+='<div class="rev"><h2>Perfect — no mistakes! 🎉</h2></div>';
+  }
+  h+='<button class="retry" onclick="location.reload()">Try again ↻</button>';
+  res.innerHTML=h;
+  window.scrollTo(0,0);
+}
+render();
+</script>
+</body>
+</html>
