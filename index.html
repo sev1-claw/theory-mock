@@ -52,7 +52,7 @@
   <div id="result" style="display:none"></div>
 </div>
 <script>
-const Q = [
+const BANK = [
  {c:"Stopping distances",q:"What is the typical overall stopping distance at 60 mph in good, dry conditions?",o:["36 metres","53 metres","73 metres","96 metres"],a:2},
  {c:"Stopping distances",q:"At 50 mph, roughly how much of the overall stopping distance is thinking (reaction) distance?",o:["12 metres","15 metres","24 metres","38 metres"],a:1},
  {c:"Stopping distances",q:"In icy conditions, stopping distances can be up to how many times greater than on a dry road?",o:["Twice","Four times","Ten times","Twenty times"],a:2},
@@ -102,11 +102,73 @@ const Q = [
  {c:"Environment",q:"Which driving style reduces fuel consumption and emissions the most?",o:["Hard acceleration and late braking","Smooth acceleration and gentle braking","Keeping revs high","Coasting downhill"],a:1},
  {c:"Environment",q:"A catalytic converter is fitted to…",o:["Increase engine power","Reduce toxic exhaust emissions","Improve the brakes","Cool the engine"],a:1},
  {c:"Parking",q:"At night you may park without lights on a road with a speed limit of…",o:["30 mph or less","40 mph","60 mph","Any speed limit"],a:0},
- {c:"Level crossings",q:"At a level crossing the amber light comes on and the alarm sounds as you approach. You should…",o:["Drive across quickly","Stop before the crossing and wait","Zig-zag around the barrier","Reverse away fast"],a:1}
+ {c:"Level crossings",q:"At a level crossing the amber light comes on and the alarm sounds as you approach. You should…",o:["Drive across quickly","Stop before the crossing and wait","Zig-zag around the barrier","Reverse away fast"],a:1},
+ {c:"Motorway studs",q:"On a motorway, RED reflective studs mark…",o:["The left-hand edge of the carriageway","The lane centres","The right-hand edge","Slip road entrances"],a:0},
+ {c:"Motorway studs",q:"AMBER reflective studs on a motorway mark…",o:["The left edge","The right-hand edge (next to the central reservation)","Lane dividers","Lay-bys"],a:1},
+ {c:"Motorway studs",q:"GREEN reflective studs mark…",o:["Roadworks","The edge of the main carriageway at slip roads and lay-bys","The central reservation","Lane centres"],a:1},
+ {c:"Motorway studs",q:"WHITE reflective studs are found…",o:["Between the lanes","At the far right edge","At slip roads only","At the hard shoulder edge"],a:0},
+ {c:"Motorways",q:"You miss your exit on the motorway. You should…",o:["Reverse back to it","Stop and turn around","Carry on to the next exit","Cross the central reservation"],a:2},
+ {c:"Motorways",q:"Your car breaks down on a motorway with a hard shoulder. After stopping you should…",o:["Stay in the car with a seatbelt on","Leave by the left doors and wait behind the barrier up the bank","Stand in front of the car","Open the bonnet and stand beside it"],a:1},
+ {c:"Smart motorways",q:"On a motorway with no hard shoulder, in a breakdown you should aim to reach…",o:["The central reservation","An emergency refuge area","The nearest bridge","A slip road only"],a:1},
+ {c:"Tunnels",q:"Before entering a long tunnel you should…",o:["Put on sunglasses","Remove sunglasses and tune the radio to any traffic channel","Turn off your lights","Close all air vents"],a:1},
+ {c:"Weather",q:"In gusty crosswinds, which are most likely to be blown off course?",o:["Heavy lorries","Cyclists and high-sided vehicles","Sports cars","Buses only"],a:1},
+ {c:"Weather",q:"You are driving in fog below 100 m visibility. You should use…",o:["Full-beam headlights","Dipped headlights and fog lights","Sidelights only","Hazard lights while moving"],a:1},
+ {c:"Weather",q:"To move off on packed snow or ice, you should…",o:["Use maximum revs","Pull away gently in as high a gear as possible","Spin the wheels to get grip","Use the handbrake to help"],a:1},
+ {c:"Night driving",q:"You are dazzled by the headlights of an oncoming vehicle. You should…",o:["Flash back at them","Slow down or stop until you can see clearly","Speed up to pass quickly","Close your eyes briefly"],a:1},
+ {c:"Junctions",q:"You must NOT enter a yellow box junction unless…",o:["The lights are green","Your exit road is clear","There is no camera","A police officer waves you on"],a:1},
+ {c:"Junctions",q:"(Exception) You MAY wait in a box junction when…",o:["Turning left","Going straight on","Turning right and only oncoming traffic stops you","Never"],a:2},
+ {c:"Roundabouts",q:"At a mini-roundabout you should give way to…",o:["Traffic on your left","Traffic already on the roundabout / from the right","The largest vehicle","Nobody — just go"],a:1},
+ {c:"Crossings",q:"A toucan crossing is designed to be used by…",o:["Pedestrians only","Pedestrians and cyclists together","Horse riders","Buses"],a:1},
+ {c:"Crossings",q:"A puffin crossing differs from a pelican because it…",o:["Has a flashing amber phase","Uses sensors and has no flashing amber phase","Is only for cyclists","Has no red light"],a:1},
+ {c:"Crossings",q:"At a zebra crossing you must give way once a pedestrian…",o:["Is waiting on the pavement","Has stepped onto the crossing","Has fully crossed","Presses a button"],a:1},
+ {c:"Road markings",q:"Double white lines with a solid line on your side mean you…",o:["May cross to overtake","Must not cross or straddle it (except in limited cases)","May park there","Must stop"],a:1},
+ {c:"Road markings",q:"A single yellow line along the kerb means…",o:["No stopping at any time","Waiting restrictions apply at certain times (check the sign)","Loading only","Bus lane"],a:1},
+ {c:"Road markings",q:"Double red lines (a red route) mean…",o:["Bus lane only","No stopping at any time","Parking with a permit","Waiting for 30 minutes"],a:1},
+ {c:"Emergency vehicles",q:"An ambulance with flashing blue lights is behind you. You should…",o:["Brake hard immediately","Pull over safely when you can, without breaking the law","Speed up to clear the road","Stop instantly wherever you are"],a:1},
+ {c:"Trams",q:"When sharing the road with trams you should remember they…",o:["Can stop very quickly","Cannot steer to avoid you and have priority","Always give way to cars","Only run at night"],a:1},
+ {c:"Vulnerable users",q:"Before pulling away, a motorcyclist glances over their shoulder. This is called a…",o:["Blind check","Life-saver glance","Mirror signal","Head bob"],a:1},
+ {c:"Buses",q:"A bus ahead is signalling to move out from a bus stop. You should…",o:["Accelerate past it","Give way to it if it's safe to do so","Sound your horn","Overtake on the left"],a:1},
+ {c:"Child safety",q:"Who is responsible for making sure children under 14 wear seat belts or restraints?",o:["The children","The front passenger","The driver","Nobody — it's advisory"],a:2},
+ {c:"Child safety",q:"A child must normally use a child car seat until they are…",o:["12 years old or 135 cm tall (whichever first)","10 years old","7 years old","5 years old"],a:0},
+ {c:"Alcohol & drugs",q:"You drank heavily last night. The next morning you may…",o:["Definitely be fine to drive","Still be over the legal limit","Drive if you feel okay","Drive after a coffee"],a:1},
+ {c:"Alcohol & drugs",q:"Prescription medicine warns it may cause drowsiness. You should…",o:["Take a smaller dose and drive","Not drive and check with a doctor/pharmacist","Drive with the window open","Drive only short distances"],a:1},
+ {c:"Fatigue",q:"Tiredness is most likely to affect you when driving on…",o:["Busy city streets","Long, monotonous roads like motorways","Country lanes","Roundabouts"],a:1},
+ {c:"Vehicle checks",q:"Your brakes feel spongy when pressed. This could mean…",o:["The tyres are new","Air or a fault in the brake fluid system","The battery is flat","The lights are on"],a:1},
+ {c:"Vehicle checks",q:"Your car pulls to one side when braking. The likely cause is…",o:["Cold weather","Uneven tyre pressures or a brake fault","A full fuel tank","Worn wipers"],a:1},
+ {c:"Vehicle checks",q:"When should you increase your tyre pressures?",o:["Never","When carrying a heavy load or driving fast for a long way","In cold weather only","When the tyres are new"],a:1},
+ {c:"Environment",q:"Leaving a roof box or roof rack on when not needed will…",o:["Improve grip","Increase drag and fuel consumption","Lower emissions","Make the car faster"],a:1},
+ {c:"Environment",q:"A spilt patch of diesel on the road is dangerous because it…",o:["Damages tyres instantly","Makes the surface very slippery, especially for motorcyclists","Smells bad","Blocks drains"],a:1},
+ {c:"Documents",q:"If asked by police and you don't have your documents with you, you must produce them within…",o:["24 hours","3 days","7 days","1 month"],a:2},
+ {c:"Speed limits",q:"In a 20 mph zone with traffic-calming (humps), you should…",o:["Speed up between humps","Keep to a steady speed within the limit","Ignore the limit if clear","Only slow at the humps"],a:1},
+ {c:"Overtaking",q:"You should NOT overtake when…",o:["The road ahead is clear","You are approaching a bend, junction or the brow of a hill","On a dual carriageway","There is a dashed centre line"],a:1},
+ {c:"Signals",q:"You intend to turn right at a junction. You should signal…",o:["As you start to turn","In good time before the junction","Only if others are around","After you've turned"],a:1},
+ {c:"Observation",q:"Before moving off from the kerb, your final check should be…",o:["The rear-view mirror only","A blind-spot (shoulder) check","The fuel gauge","The handbrake"],a:1},
+ {c:"Hazard awareness",q:"A ball bounces into the road from between parked cars. You should…",o:["Sound your horn and continue","Slow down and be ready to stop — a child may follow","Swerve to the other side","Speed up past the gap"],a:1},
+ {c:"Motorways",q:"The minimum age to ride a moped is 16, but you may drive on a motorway only if the vehicle can exceed…",o:["30 mph","50 mph","No minimum","70 mph"],a:1},
+ {c:"Loads",q:"A load projecting more than 1 metre behind your vehicle requires…",o:["Nothing","A clearly visible marker","A police escort always","Hazard lights only"],a:1},
+ {c:"Braking",q:"On a long downhill, to help control your speed you should…",o:["Coast in neutral","Select a lower gear to use engine braking","Ride the brakes continuously","Turn off the engine"],a:1},
+ {c:"Traffic lights",q:"Red and amber shown together at traffic lights means…",o:["Go","Stop — do not pass until green","Give way","Speed up to clear"],a:1},
+ {c:"Signs",q:"An octagonal (8-sided) sign always means…",o:["Give way","Stop","No entry","National speed limit"],a:1},
+ {c:"Signs",q:"A red circle with a white horizontal bar means…",o:["No entry for vehicular traffic","No overtaking","No parking","End of restriction"],a:0},
+ {c:"Motorways",q:"You may use the right-hand lane of a three-lane motorway to…",o:["Cruise at any time","Overtake, then move back left","Drive slowly","Rest"],a:1},
+ {c:"Fatigue",q:"After stopping for a rest because you feel tired, the most effective quick boost is…",o:["A cold drink","Two cups of coffee (caffeine) and a short nap","A big meal","Loud music"],a:1},
+ {c:"Environment",q:"Harsh, aggressive driving compared with smooth driving typically…",o:["Uses less fuel","Uses much more fuel and increases wear","Has no effect","Is safer"],a:1}
 ];
 
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const TEST_SIZE=Math.min(50,BANK.length);
+let Q=[];
+function buildTest(){
+  Q=shuffle(BANK.slice()).slice(0,TEST_SIZE).map(it=>{
+    const correct=it.o[it.a];
+    const opts=shuffle(it.o.slice());
+    return {c:it.c,q:it.q,o:opts,a:opts.indexOf(correct)};
+  });
+}
+buildTest();
+
 let cur=0;
-const answers=new Array(Q.length).fill(null);
+let answers=new Array(Q.length).fill(null);
 const quiz=document.getElementById('quiz');
 const prog=document.getElementById('prog');
 const fill=document.getElementById('fill');
@@ -140,7 +202,7 @@ function finish(){
   let score=0;
   Q.forEach((it,i)=>{if(answers[i]===it.a)score++;});
   const pct=Math.round(score/Q.length*100);
-  const passMark=43; // 43/50 like the real multiple-choice section
+  const passMark=Math.round(Q.length*43/50); // real test is 43/50 (86%)
   const passed=score>=passMark;
   quiz.style.display='none';
   fill.style.width='100%';
@@ -149,7 +211,7 @@ function finish(){
   let h='<div class="score">';
   h+='<div class="big '+(passed?'pass':'fail')+'">'+score+'/'+Q.length+'</div>';
   h+='<div class="verdict '+(passed?'pass':'fail')+'">'+(passed?'PASS ✅':'Not yet — keep going 💪')+'</div>';
-  h+='<div class="sub">'+pct+'% correct · pass mark is 43/50</div>';
+  h+='<div class="sub">'+pct+'% correct · pass mark is '+passMark+'/'+Q.length+' (86%)</div>';
   h+='</div>';
   // review wrong ones
   const wrong=Q.map((it,i)=>({it,i})).filter(x=>answers[x.i]!==x.it.a);
@@ -166,8 +228,18 @@ function finish(){
   } else {
     h+='<div class="rev"><h2>Perfect — no mistakes! 🎉</h2></div>';
   }
-  h+='<button class="retry" onclick="location.reload()">Try again ↻</button>';
+  h+='<button class="retry" onclick="newTest()">New test — fresh questions ↻</button>';
   res.innerHTML=h;
+  window.scrollTo(0,0);
+}
+function newTest(){
+  buildTest();
+  cur=0;
+  answers=new Array(Q.length).fill(null);
+  document.getElementById('result').style.display='none';
+  document.getElementById('result').innerHTML='';
+  quiz.style.display='block';
+  render();
   window.scrollTo(0,0);
 }
 render();
